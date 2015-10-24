@@ -3,10 +3,17 @@
 
 // We'll put the mcp on the PIN 0 if the arduino.
 int MCP9701_ARDUINO_PIN = 0;
+// Light sensor
 int LIGHT_PIN = 1;
+// Presence sensor
+int PIR_PIN = 2;
+
+// Set to false to not bip on presence
+bool bip = true;
 
 // Debug through the serial at 9600baud
 void setup() {
+    pinMode(9, OUTPUT);
     Serial.begin(9600);
     Serial.println("Initiating sensors loop.");
 }
@@ -23,9 +30,25 @@ void loop() {
         delay(200);
     }
 
+    bool pir = readPir();
+
     // Print the output on the serial.
     Serial.print("Temp: "); Serial.print(resTemp/5.0f); Serial.println(" C");
     Serial.print("Light: "); Serial.print(resLight/5.0f); Serial.println(" %");
+    Serial.print("PIR: "); Serial.print(pir ? "Yes" : "No"); Serial.println();
+
+    if (bip && pir) {
+        analogWrite(9, 20);
+        delay(50);
+        analogWrite(9, 0);
+    }
+}
+
+bool readPir() {
+    if (analogRead(PIR_PIN) > 500) {
+        return true;
+    }
+    return false;
 }
 
 float readLight() {
