@@ -33,9 +33,9 @@ void loop() {
     bool pir = readPir();
 
     // Print the output on the serial.
-    Serial.print("Temp: "); Serial.print(resTemp/5.0f); Serial.println(" C");
-    Serial.print("Light: "); Serial.print(resLight/5.0f); Serial.println(" %");
-    Serial.print("PIR: "); Serial.print(pir ? "Yes" : "No"); Serial.println();
+    Serial.print("T"); Serial.print(resTemp/5.0f); Serial.print(" ");
+    Serial.print("L"); Serial.print(resLight/5.0f); Serial.print(" ");
+    Serial.print("P"); Serial.println(pir ? "1" : "0");
 
     if (bip && pir) {
         analogWrite(9, 20);
