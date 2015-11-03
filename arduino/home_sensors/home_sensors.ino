@@ -64,6 +64,9 @@ void loop() {
     if (next_write < millis()) {
         write();
     }
+
+    /* Don't consume too much power */
+    delay(500);
 }
 
 /* Sends data to the Olimex through the serial */
