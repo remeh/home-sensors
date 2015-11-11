@@ -49,8 +49,8 @@ void setup() {
 
 void loop() {
     // MCP9701A put on the Arduino's pin.
-    resTemp += readTemperature();
-    resLight += readLight();
+    resTemp = readTemperature();
+    resLight = readLight();
 
     bool oldPir = pir;
     pir = readPir();
